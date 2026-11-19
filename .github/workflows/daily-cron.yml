@@ -1,0 +1,14 @@
+# Free scheduler for hosts without Celery beat: triggers recurring expenses (+ Monday digest) once a day.
+# Setup: GitHub repo > Settings > Secrets and variables > Actions > add  API_URL (https://<render-host>)  and  CRON_TOKEN
+name: Daily jobs
+on:
+  schedule:
+    - cron: "30 0 * * *"   # 06:00 IST
+  workflow_dispatch:
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          curl --fail-with-body -sS -X POST "${{ secrets.API_URL }}/api/cron/daily/" \
+               -H "X-Cron-Token: ${{ secrets.CRON_TOKEN }}" --max-time 120 --retry 3 --retry-delay 20

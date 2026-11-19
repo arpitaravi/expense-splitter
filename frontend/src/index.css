@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { -webkit-tap-highlight-color: transparent; }
+  /* No text cursor / selection on plain page text: the caret shows only inside inputs */
+  body {
+    @apply min-h-screen cursor-default select-none font-sans text-slate-800 antialiased;
+    caret-color: transparent;
+    background:
+      radial-gradient(1100px 600px at 8% -10%, #c7d2fe 0%, transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, #fbcfe8 0%, transparent 55%),
+      radial-gradient(900px 600px at 50% 115%, #bae6fd 0%, transparent 60%),
+      #f5f3ff;
+    background-attachment: fixed;
+  }
+  input, textarea, select { @apply select-text cursor-text; caret-color: #4f46e5; }
+  select, button, a, label, summary { @apply cursor-pointer; }
+  input[type="checkbox"] { @apply cursor-pointer; }
+}
+
+@layer components {
+  .card { @apply rounded-2xl bg-white/80 p-4 shadow-lg shadow-indigo-200/40 ring-1 ring-white/80 backdrop-blur; }
+  .btn { @apply inline-flex items-center justify-center gap-1 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-indigo-300/50 transition hover:from-indigo-700 hover:to-violet-700 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-ghost { @apply inline-flex items-center justify-center gap-1 rounded-xl border border-indigo-200 bg-white/70 px-3 py-1.5 text-sm font-medium text-indigo-700 transition hover:bg-indigo-50 active:scale-95 disabled:opacity-50; }
+  .btn-danger { @apply inline-flex items-center justify-center gap-1 rounded-xl border border-rose-200 bg-white/70 px-3 py-1.5 text-sm font-medium text-rose-600 transition hover:bg-rose-50 active:scale-95 disabled:opacity-50; }
+  .input { @apply w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm shadow-inner focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-300; }
+  .label { @apply mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500; }
+  .tab { @apply whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium text-slate-600 transition hover:bg-white/80; }
+  .tab-active { @apply bg-gradient-to-r from-indigo-600 to-violet-600 !text-white shadow-md shadow-indigo-300/50 hover:bg-transparent; }
+  .err { @apply rounded-lg bg-rose-50 px-3 py-2 text-sm text-rose-700 ring-1 ring-rose-200; }
+  .ok { @apply rounded-lg bg-emerald-50 px-3 py-2 text-sm text-emerald-700 ring-1 ring-emerald-200; }
+}

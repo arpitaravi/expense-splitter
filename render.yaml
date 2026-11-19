@@ -1,0 +1,35 @@
+# Render Blueprint: New + > Blueprint > pick this repo
+services:
+  - type: web
+    name: splitter-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /api/health/
+    plan: free
+    envVars:
+      - key: DEBUG
+        value: "0"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase: { name: splitter-db, property: connectionString }
+      - key: ALLOWED_HOSTS
+        value: splitter-api.onrender.com          # change to your Render URL host
+      - key: CORS_ORIGINS
+        sync: false                                # your Vercel URL, e.g. https://splitter.vercel.app
+      - key: CSRF_TRUSTED_ORIGINS
+        sync: false                                # same Vercel URL + your Render URL (https://...)
+      - key: FRONTEND_URL
+        sync: false
+      - key: CLOUDINARY_URL
+        sync: false                                # optional: receipt uploads
+      - key: BREVO_API_KEY
+        sync: false                                # optional: real emails (invites, password reset, digests)
+      - key: DEFAULT_FROM_EMAIL
+        sync: false                                # the sender you verified in Brevo, e.g. you@gmail.com
+      - key: CRON_TOKEN
+        generateValue: true                        # copy this into the GitHub secret CRON_TOKEN
+databases:
+  - name: splitter-db
+    plan: free
